@@ -1,0 +1,21 @@
+/* Tokens de diseño: colores y tipografía (claro / oscuro) */
+:root {
+  --bg: #F5F2FA; --card: #fff; --tx: #1D1530; --mut: #6A6283; --bd: #E1DAF0;
+  --pri: #5B3FD0; --prit: #fff; --err: #D6196F; --ok: #13866A;
+  --hero: #1D1530; --herotx: #F5F2FA; --field: #F8F6FC;
+  --tag: #FFB703; --tagtx: #1D1530;
+  --disp: "Bricolage Grotesque", system-ui, sans-serif;
+  --body: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #120D1F; --card: #1C1530; --tx: #EEE9FA; --mut: #A59BC0; --bd: #33294F;
+    --pri: #9B87FF; --prit: #120D1F; --err: #FF6AA9; --ok: #4FD1A5;
+    --hero: #241A44; --field: #150F26;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #120D1F; --card: #1C1530; --tx: #EEE9FA; --mut: #A59BC0; --bd: #33294F;
+  --pri: #9B87FF; --prit: #120D1F; --err: #FF6AA9; --ok: #4FD1A5;
+  --hero: #241A44; --field: #150F26;
+}

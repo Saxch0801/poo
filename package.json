@@ -1,0 +1,8 @@
+{
+  "name": "gestor-productos",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Gestor de productos con servidor Node, archivos JSON y estructuras de datos propias",
+  "scripts": { "start": "node server/server.js" },
+  "engines": { "node": ">=18" }
+}

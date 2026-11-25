@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gestor de productos</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📦%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="hw">
+    <div>
+      <h1>Tu inventario, siempre a la mano</h1>
+      <p class="sub">Agrega productos con foto, edítalos y encuéntralos al instante. Todo se guarda en este navegador.</p>
+    </div>
+    <div class="stats" id="stats" hidden>
+      <div class="st"><b id="s-n">0</b><span>productos</span></div>
+      <div class="st"><b id="s-v">$0</b><span>valor en stock</span></div>
+      <div class="st"><b id="s-l">0</b><span>con stock bajo</span></div>
+    </div>
+    <div class="me" id="me" hidden><span id="me-n"></span><button id="out" type="button">Cerrar sesión</button></div>
+  </div>
+</header>
+
+<section id="auth">
+  <div class="card">
+    <div class="tabs">
+      <button id="t-in" class="on" type="button">Iniciar sesión</button>
+      <button id="t-up" type="button">Crear cuenta</button>
+    </div>
+    <div id="f-in">
+      <label for="l-mail">Correo</label>
+      <input id="l-mail" type="email" autocomplete="username" placeholder="tu@correo.com">
+      <div class="err" id="e-l-mail"></div>
+      <label for="l-pass">Contraseña</label>
+      <input id="l-pass" type="password" autocomplete="current-password">
+      <div class="err" id="e-l-pass"></div>
+      <label class="chk"><input id="l-keep" type="checkbox"> Mantener la sesión iniciada</label>
+      <div class="err" id="e-l-all"></div>
+      <div class="acts"><button class="pri" id="b-in" type="button">Entrar</button></div>
+    </div>
+    <div id="f-up" hidden>
+      <label for="u-nombre">Nombre</label>
+      <input id="u-nombre" maxlength="50" autocomplete="name">
+      <div class="err" id="e-u-nombre"></div>
+      <label for="u-mail">Correo</label>
+      <input id="u-mail" type="email" autocomplete="email" placeholder="tu@correo.com">
+      <div class="err" id="e-u-mail"></div>
+      <label for="u-pass">Contraseña</label>
+      <input id="u-pass" type="password" autocomplete="new-password" placeholder="Mínimo 8 caracteres, letras y números">
+      <div class="err" id="e-u-pass"></div>
+      <label for="u-pass2">Repite la contraseña</label>
+      <input id="u-pass2" type="password" autocomplete="new-password">
+      <div class="err" id="e-u-pass2"></div>
+      <div class="acts"><button class="pri" id="b-up" type="button">Crear cuenta</button></div>
+    </div>
+    <p class="note">Las cuentas y los productos se guardan solo en este navegador. Cada cuenta ve únicamente sus propios productos.</p>
+  </div>
+</section>
+
+<main id="app" hidden>
+  <section class="card">
+    <h2 id="ftitle">Nuevo producto</h2>
+    <label for="codigo">Código *</label>
+    <input id="codigo" maxlength="20" placeholder="Ej. PRD-001" autocomplete="off">
+    <div class="err" id="e-codigo"></div>
+
+    <label for="nombre">Nombre *</label>
+    <input id="nombre" maxlength="60" placeholder="Nombre del producto" autocomplete="off">
+    <div class="err" id="e-nombre"></div>
+
+    <label for="categoria">Categoría *</label>
+    <select id="categoria"><option value="">Selecciona…</option></select>
+    <div class="err" id="e-categoria"></div>
+
+    <div class="row">
+      <div><label for="precio">Precio (MXN) *</label><input id="precio" type="number" step="0.01" min="0" inputmode="decimal"><div class="err" id="e-precio"></div></div>
+      <div><label for="stock">Stock *</label><input id="stock" type="number" step="1" min="0" inputmode="numeric"><div class="err" id="e-stock"></div></div>
+    </div>
+
+    <label for="desc">Descripción</label>
+    <textarea id="desc" rows="3" maxlength="300"></textarea>
+    <div class="err" id="e-desc"></div>
+
+    <label for="foto">Imagen (JPG, PNG o WEBP, máx. 3 MB)</label>
+    <input id="foto" type="file" accept="image/jpeg,image/png,image/webp">
+    <div class="err" id="e-foto"></div>
+    <img id="prev" alt="Vista previa">
+
+    <div class="acts">
+      <button class="pri" id="save" type="button">Guardar producto</button>
+      <button id="cancel" type="button">Limpiar</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Productos</h2>
+    <div class="bar">
+      <input id="q" type="search" placeholder="Buscar por nombre, código o descripción…">
+      <select id="fcat"><option value="">Todas las categorías</option></select>
+      <select id="sort">
+        <option value="nuevo">Más recientes</option>
+        <option value="nombre">Nombre A-Z</option>
+        <option value="precioA">Precio menor</option>
+        <option value="precioD">Precio mayor</option>
+        <option value="stock">Menos stock</option>
+      </select>
+    </div>
+    <div class="count" id="count"></div>
+    <div class="grid" id="list"></div>
+  </section>
+</main>
+
+<div id="toast"></div>
+
+<!-- Orden de carga: config y utilidades primero, app al final -->
+<script src="js/config.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/validator.js"></script>
+<script src="js/imageProcessor.js"></script>
+<script src="js/database.js"></script>
+<script src="js/authService.js"></script>
+<script src="js/productService.js"></script>
+<script src="js/ui/toast.js"></script>
+<script src="js/ui/header.js"></script>
+<script src="js/ui/authView.js"></script>
+<script src="js/ui/productForm.js"></script>
+<script src="js/ui/productList.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
